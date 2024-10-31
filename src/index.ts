@@ -21,7 +21,7 @@ try {
     server.log.warn("Migrating database...");
     const migrationClient = new pg.Client({ connectionString: databaseUrl });
     await migrationClient.connect();
-    await migrate(drizzle(migrationClient), { migrationsFolder: `${process.cwd()}/drizzle` });
+    await migrate(drizzle(migrationClient, { casing: "snake_case" }), { migrationsFolder: `${process.cwd()}/drizzle` });
     server.log.warn("Database migrated successfully");
     await migrationClient.end();
 }
